@@ -1,8 +1,13 @@
 # Wesker's Minecraft Optimization Guide
-This serves as a **personal guide** to how I optimized Java to run faster in minecraft!
+This serves as a guide to how I have managed to make minecraft run better, using GraalVM and custom java arguments in order to get the intended performance gain I can squeeze out more to minecraft!
+
+> [!WARNING]
+> These java arguments are not made for **Minecraft Servers**!!!\
+> The java arguments in this repository is made only for the minecraft client. Which has a lot of agressive optimizations that may not be applicable for a server environment.
 
 - Install [GraalVM](https://www.graalvm.org/downloads)!
   - Preferrably GraalVM 25 for minecraft versions 1.21 and up!
+  - I am unsure about versions lower than 1.21, as this is the only version I have tried it with!
 - Enable **Huge Pages** in your **Operating System**
   - Windows
     - To do this, press `Win + R`, type `secpol.msc`, and press `Enter`.
@@ -19,7 +24,26 @@ This serves as a **personal guide** to how I optimized Java to run faster in min
     - Make sure to turn on `Skip Java compatibility checks`!
   - Modrinth: 
     - <img width="656" height="214" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
-- Put the following JVM Arguments into your launcher. (it's kept updated until no further optimizations can be made!)
+- Put the following JVM Arguments into your launcher, depending on your Java Version.
+  - The following arguments are updated until no further optimizations can be made.
+
+## JVM Arguments for GraalVM 25
 ```
--XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled -XX:+PerfDisableSharedMem -XX:+UseCompactObjectHeaders -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1HeapWastePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:MaxGCPauseMillis=200 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:+UseStringDeduplication -XX:ReservedCodeCacheSize=512M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=250M -XX:NonProfiledCodeHeapSize=250M -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -XX:+OmitStackTraceInFastThrow -XX:AllocatePrefetchStyle=3 -XX:+UseFastUnorderedTimeStamps -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseJVMCICompiler -XX:+EagerJVMCI -Djdk.graal.CompilerConfiguration=enterprise -Djdk.graal.TuneInlinerExploration=1 -Duser.language=en -Dfile.encoding=UTF-8
+-XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled -XX:+PerfDisableSharedMem
+-XX:+UseCompactObjectHeaders -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40
+-XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15
+-XX:G1MixedGCLiveThresholdPercent=90 -XX:G1HeapWastePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1
+-XX:MaxGCPauseMillis=200 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:+UseStringDeduplication -XX:ReservedCodeCacheSize=512M
+-XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=250M -XX:NonProfiledCodeHeapSize=250M
+-XX:+UseLargePages -XX:LargePageSizeInBytes=2M -XX:+OmitStackTraceInFastThrow -XX:AllocatePrefetchStyle=3
+-XX:+UseFastUnorderedTimeStamps -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000
+-XX:+UseJVMCICompiler -XX:+EagerJVMCI -Djdk.graal.CompilerConfiguration=enterprise -Djdk.graal.TuneInlinerExploration=1
+-Duser.language=en -Dfile.encoding=UTF-8
 ```
+
+## JVM Arguments for GraalVM 21
+I currently have an actual list of Java arguments available in my own personal server, although they are currently not here as I have been focusing more on GraalVM 25 for now, modifying it until no further possible optimizations can be made (i am trying so hard rn), and trying to clean up some unused args if any, or args that is mainly useless or does nothing.
+
+## Sources
+These are the sources that I have used to make the jvm args!
+- https://www.graalvm.org/latest/reference-manual/java/options/
