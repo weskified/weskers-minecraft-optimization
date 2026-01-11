@@ -20,25 +20,16 @@ This serves as a guide to how I have managed to make minecraft run better, using
 - Extract GraalVM somewhere, and copy the path to the `javaw` executable and paste it in your launcher as default.
   - For example, `D:\java\graalvm-jdk-25.0.1+8.1\bin\javaw.exe`.
   - Prism Launcher:
-    - <img width="407" height="227" alt="image" src="https://github.com/user-attachments/assets/85e0971c-715a-48fd-870c-23dd8d22b0a3" />
+    - <img width="611" height="341" alt="image" src="https://github.com/user-attachments/assets/85e0971c-715a-48fd-870c-23dd8d22b0a3" />
     - Make sure to turn on `Skip Java compatibility checks`!
   - Modrinth: 
-    - <img width="656" height="214" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
+    - <img width="984" height="321" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
 - Put the following JVM Arguments into your launcher, depending on your Java Version.
   - The following arguments are updated until no further optimizations can be made.
 
 ## JVM Arguments for GraalVM 25
 ```
--XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled -XX:+PerfDisableSharedMem
--XX:+UseCompactObjectHeaders -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40
--XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15
--XX:G1MixedGCLiveThresholdPercent=90 -XX:G1HeapWastePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1
--XX:MaxGCPauseMillis=200 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:+UseStringDeduplication -XX:ReservedCodeCacheSize=512M
--XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=250M -XX:NonProfiledCodeHeapSize=250M
--XX:+UseLargePages -XX:LargePageSizeInBytes=2M -XX:+OmitStackTraceInFastThrow -XX:AllocatePrefetchStyle=3
--XX:+UseFastUnorderedTimeStamps -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000
--XX:+UseJVMCICompiler -XX:+EagerJVMCI -Djdk.graal.CompilerConfiguration=enterprise -Djdk.graal.TuneInlinerExploration=1
--Duser.language=en -Dfile.encoding=UTF-8
+-XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=120 -XX:G1HeapRegionSize=8M -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1HeapWastePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+PerfDisableSharedMem -XX:+UseCompactObjectHeaders -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1 -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -XX:AllocatePrefetchStyle=3 -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+UseJVMCICompiler -XX:+EagerJVMCI -Djdk.graal.CompilerConfiguration=enterprise -Djdk.graal.TuneInlinerExploration=1 -Duser.language=en -Dfile.encoding=UTF-8
 ```
 
 ## JVM Arguments for GraalVM 21
