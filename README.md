@@ -16,6 +16,7 @@ This serves as a **personal guide** to how I optimized Java to run faster in min
   - For example, `D:\java\graalvm-jdk-25.0.1+8.1\bin\javaw.exe`.
   - Prism Launcher:
     - <img width="407" height="227" alt="image" src="https://github.com/user-attachments/assets/85e0971c-715a-48fd-870c-23dd8d22b0a3" />
+    - Make sure to turn on `Skip Java compatibility checks`!
   - Modrinth: 
     - <img width="656" height="214" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
 - Put the following JVM Arguments into your launcher. (it's kept updated until no further optimizations can be made!)
