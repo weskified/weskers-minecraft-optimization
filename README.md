@@ -10,8 +10,19 @@ In order to get actual performance gain, We will be using **Java 25** of any dis
 
 The following instructions below is a guide to help you setup minecraft to run faster, so read them properly!
 
-- Install the Java Distribution of your choice, this can be [Adoptium Eclipse Termuin](https://adoptium.net/temurin/releases?version=25&os=any&arch=any) or [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu) as mentioned above.
-  - These hyperlinks link to the **Java 25** of both distributions, so you dont have to, just make sure to choose the correct operating system that you're playing mineraft on!
+- Install the Java Distribution of your choice.
+  - You can do this automatically inside your Launcher, specifically [Prism Launcher](https://prismlauncher.org/). [Modrinth](https://modrinth.com/app) automatically downloads from [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu). and skip to the third step.
+  - If you want to do this manually, you can continue reading this.
+- Extract the downloaded JDK somewhere, then copy, and paste the executable to your launcher.
+  - To do this, extract the downloaded package for the JDK to a specific path.
+    - For example, extract `azul_zulu_jre25.0.1` into `C:\java\azul_zulu_jre25.0.1` or something.
+    - After that, copy the path for `javaw.exe` (windows) or `java` (linux), can be found inside the `bin` folder.
+    - Paste the path to your launcher, and verify that the executable works properly.
+      - Prism Launcher:
+        - <img width="851" height="408" alt="image" src="https://github.com/user-attachments/assets/346d3de1-8869-44de-ad9a-51a18ac89efb" />
+        - Make sure to turn on `Skip Java compatibility checks`!
+      - Modrinth: 
+        - <img width="984" height="321" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
 - Enable **Huge Pages** (windows) or **Transparent Huge Pages** (linux) in your OS.
   - Windows
     - To do this, press `Win + R`, type `secpol.msc`, and press `Enter`.
@@ -23,15 +34,6 @@ The following instructions below is a guide to help you setup minecraft to run f
     - Do i even have to?
     - In some distributions, THP is enabled by default. Check if your distribution has it on by default with `cat /sys/kernel/mm/transparent_hugepage/enabled`.
       - If it says `[always] madvise never`, it means it's enabled already.
-- Extract the downloaded JDK somewhere, copy the and set it as your launcher's default.
-  - for example, Extract `azul_zulu_jre25.0.1` into `C:\java\azul_zulu_jre25.0.1`.
-  - Then copy the path for `javaw.exe` (windows) or `java` (linux).
-  - Paste the path to your launcher, and verify that the executable works.
-    - Prism Launcher:
-      - <img width="851" height="408" alt="image" src="https://github.com/user-attachments/assets/346d3de1-8869-44de-ad9a-51a18ac89efb" />
-      - Make sure to turn on `Skip Java compatibility checks`!
-    - Modrinth: 
-      - <img width="984" height="321" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
 - Paste the following JVM arguments to your launcher.
   - The JVM arguments are kept updated until no optimizations can be possibly made anymore.
 
