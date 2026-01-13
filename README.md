@@ -1,47 +1,52 @@
 # Wesker's Minecraft Optimization Guide
-This serves as a guide to how I have managed to make minecraft run better, using GraalVM and custom java arguments in order to get the intended performance gain I can squeeze out more to minecraft!
+This serves as a guide on how I made the Minecraft Client run faster and better! With the use of Java Arguments to get the intended performance gain I can squeeze out to minecraft!
 
 > [!WARNING]
-> These java arguments are not made for **Minecraft Servers**!!!\
-> The java arguments in this repository is made only for the minecraft client. Which has a lot of agressive optimizations that may not be applicable for a server environment.
+> These java arguments are not built for **Minecraft Servers**! They are mainly built for the Minecraft Client and is not tested to a server environment.
 
-- Install [GraalVM](https://www.graalvm.org/downloads)!
-  - Preferrably GraalVM 25 for minecraft versions 1.21 and up!
-  - I am unsure about versions lower than 1.21, as this is the only version I have tried it with!
-- Enable **Huge Pages** in your **Operating System**
-  - Windows (Huge Pages)
+## Setup
+In order to get actual performance gain, We will be using **Java 25** of any distribution of your choice! But the most popular ones today are mainly [Adoptium Eclipse Termuin](https://adoptium.net/temurin) and [Azul Zulu](https://adoptium.net/temurin)!
+> My older recommendation being GraalVM 25 is pretty much donezo, so any of these two will work just fine!
+
+The following instructions below is a guide to help you setup minecraft to run faster, so read them properly!
+
+- Install the Java Distribution of your choice, this can be [Adoptium Eclipse Termuin](https://adoptium.net/temurin/releases?version=25&os=any&arch=any) or [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu) as mentioned above.
+  - These hyperlinks link to the **Java 25** of both distributions, so you dont have to, just make sure to choose the correct operating system that you're playing mineraft on!
+- Enable **Huge Pages** (windows) or **Transparent Huge Pages** (linux) in your OS.
+  - Windows
     - To do this, press `Win + R`, type `secpol.msc`, and press `Enter`.
     - Go to `Security Settings` > `Local Policies` > `User Rights Assignment`.
     - Inside that, find the **Lock pages in memory** policy and then double click that policy.
     - Click **Add User or Group**, type your username (the name of the windows user account that you're using currently), then click **OK**.
     - Click **Apply** then restart your computer.
-  - Linux (Transparent Huge Pages)
-    - Not sure how, but I'm pretty sure you already know how to. :3
-    - In some distros, THP is enabled by default apparently.
-- Extract GraalVM somewhere, and copy the path to the `javaw` executable and paste it in your launcher as default.
-  - For example, `D:\java\graalvm-jdk-25.0.1+8.1\bin\javaw.exe`.
-  - Prism Launcher:
-    - <img width="611" height="341" alt="image" src="https://github.com/user-attachments/assets/85e0971c-715a-48fd-870c-23dd8d22b0a3" />
-    - Make sure to turn on `Skip Java compatibility checks`!
-  - Modrinth: 
-    - <img width="984" height="321" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
-- Put the following JVM Arguments into your launcher, depending on your Java Version.
-  - The following arguments are updated until no further optimizations can be made.
+  - Linux
+    - Do i even have to?
+    - In some distributions, THP is enabled by default. Check if your distribution has it on by default with `cat /sys/kernel/mm/transparent_hugepage/enabled`.
+      - If it says `[always] madvise never`, it means it's enabled already.
+- Extract the downloaded JDK somewhere, copy the and set it as your launcher's default.
+  - for example, Extract `azul_zulu_jre25.0.1` into `C:\java\azul_zulu_jre25.0.1`.
+  - Then copy the path for `javaw.exe` (windows) or `java` (linux).
+  - Paste the path to your launcher, and verify that the executable works.
+    - Prism Launcher:
+      - <img width="611" height="341" alt="image" src="https://github.com/user-attachments/assets/85e0971c-715a-48fd-870c-23dd8d22b0a3" />
+      - Make sure to turn on `Skip Java compatibility checks`!
+    - Modrinth: 
+      - <img width="984" height="321" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
+- Paste the following JVM arguments to your launcher.
+  - The JVM arguments are kept updated until no optimizations can be possibly made anymore.
 
 > [!NOTE]
-> The last two args, `-Duser.language=en -Dfile.encoding=UTF-8` can be removed in the arguments, but is there by personal preference due to me running into issues with very weird witchcraft with different languages and wonky encoding (rarely) :P
+> For the last two arguments for the following args below, `-Duser.language=en -Dfile.encoding=UTF-8` can be removed, but is there by personal preference due to me running into issues with very weird witchcraft with different languages and wonky encoding (rarely) :P
 
-## JVM Arguments for GraalVM 25
+## JVM Arguments for Java 25
 ```
--XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=120 -XX:G1HeapRegionSize=8M -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1HeapWastePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+PerfDisableSharedMem -XX:+UseCompactObjectHeaders -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1 -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -XX:AllocatePrefetchStyle=3 -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+UseJVMCICompiler -XX:+EagerJVMCI -Djdk.graal.CompilerConfiguration=enterprise -Djdk.graal.TuneInlinerExploration=1 -Duser.language=en -Dfile.encoding=UTF-8
+-XX:+UseZGC -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+PerfDisableSharedMem -XX:+UseCompactObjectHeaders -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1 -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseTransparentHugePages -XX:AllocatePrefetchStyle=3 -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -Duser.language=en -Dfile.encoding=UTF-8
 ```
 
-> [!NOTE]
-> In linux, replace `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M` with `-XX:+UseTransparentHugePages`!
-
-## JVM Arguments for GraalVM 21
-I currently have an actual list of Java arguments available in my own personal server, although they are currently not here as I have been focusing more on GraalVM 25 for now, modifying it until no further possible optimizations can be made (i am trying so hard rn), and trying to clean up some unused args if any, or args that is mainly useless or does nothing.
+> [!WARNING]
+> For windows, replace `-XX:+UseTransparentHugePages` with `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`!
+> In linux, I do not recommend merging the two together.
 
 ## Sources
-These are the sources that I have used to make the jvm args!
-- https://www.graalvm.org/latest/reference-manual/java/options/
+These are the sources of where I made my flags!
+- https://exa.y2k.diy/garden/jvm-args/ (because of [#1](https://github.com/weskified/weskers-minecraft-optimization/issues/1))
