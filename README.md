@@ -17,6 +17,7 @@ This serves as a guide to how I have managed to make minecraft run better, using
     - Click **Apply** then restart your computer.
   - Linux
     - Not sure how, but I'm pretty sure you already know how to. :3
+    - In some distros, THP is enabled by default apparently.
 - Extract GraalVM somewhere, and copy the path to the `javaw` executable and paste it in your launcher as default.
   - For example, `D:\java\graalvm-jdk-25.0.1+8.1\bin\javaw.exe`.
   - Prism Launcher:
@@ -34,6 +35,9 @@ This serves as a guide to how I have managed to make minecraft run better, using
 ```
 -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=120 -XX:G1HeapRegionSize=8M -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1HeapWastePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+PerfDisableSharedMem -XX:+UseCompactObjectHeaders -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1 -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseLargePages -XX:LargePageSizeInBytes=2M -XX:AllocatePrefetchStyle=3 -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:+UseJVMCICompiler -XX:+EagerJVMCI -Djdk.graal.CompilerConfiguration=enterprise -Djdk.graal.TuneInlinerExploration=1 -Duser.language=en -Dfile.encoding=UTF-8
 ```
+
+> [!NOTE]
+> In linux, replace `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M` with `-XX:+UseTransparentHugePages`!
 
 ## JVM Arguments for GraalVM 21
 I currently have an actual list of Java arguments available in my own personal server, although they are currently not here as I have been focusing more on GraalVM 25 for now, modifying it until no further possible optimizations can be made (i am trying so hard rn), and trying to clean up some unused args if any, or args that is mainly useless or does nothing.
