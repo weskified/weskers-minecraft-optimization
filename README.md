@@ -9,13 +9,13 @@ This serves as a guide to how I have managed to make minecraft run better, using
   - Preferrably GraalVM 25 for minecraft versions 1.21 and up!
   - I am unsure about versions lower than 1.21, as this is the only version I have tried it with!
 - Enable **Huge Pages** in your **Operating System**
-  - Windows
+  - Windows (Huge Pages)
     - To do this, press `Win + R`, type `secpol.msc`, and press `Enter`.
     - Go to `Security Settings` > `Local Policies` > `User Rights Assignment`.
     - Inside that, find the **Lock pages in memory** policy and then double click that policy.
     - Click **Add User or Group**, type your username (the name of the windows user account that you're using currently), then click **OK**.
     - Click **Apply** then restart your computer.
-  - Linux
+  - Linux (Transparent Huge Pages)
     - Not sure how, but I'm pretty sure you already know how to. :3
     - In some distros, THP is enabled by default apparently.
 - Extract GraalVM somewhere, and copy the path to the `javaw` executable and paste it in your launcher as default.
