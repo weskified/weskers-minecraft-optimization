@@ -11,7 +11,7 @@ In order to get actual performance gain, We will be using **Java 25** of any dis
 The following instructions below is a guide to help you setup minecraft to run faster, so read them properly!
 
 - Install the Java Distribution of your choice.
-  - You can do this automatically inside your Launcher, specifically [Prism Launcher](https://prismlauncher.org/). [Modrinth](https://modrinth.com/app) automatically downloads from [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu). and skip to the third step.
+  - You can do this automatically inside your Launcher, specifically [Prism Launcher](https://prismlauncher.org/). [Modrinth](https://modrinth.com/app) automatically downloads from [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu). so once you've done this.. skip to the third step.
   - If you want to do this manually, you can continue reading this.
 - Extract the downloaded JDK somewhere, then copy, and paste the executable to your launcher.
   - To do this, extract the downloaded package for the JDK to a specific path.
