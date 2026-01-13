@@ -28,7 +28,7 @@ The following instructions below is a guide to help you setup minecraft to run f
   - Then copy the path for `javaw.exe` (windows) or `java` (linux).
   - Paste the path to your launcher, and verify that the executable works.
     - Prism Launcher:
-      - <img width="611" height="341" alt="image" src="https://github.com/user-attachments/assets/85e0971c-715a-48fd-870c-23dd8d22b0a3" />
+      - <img width="851" height="408" alt="image" src="https://github.com/user-attachments/assets/346d3de1-8869-44de-ad9a-51a18ac89efb" />
       - Make sure to turn on `Skip Java compatibility checks`!
     - Modrinth: 
       - <img width="984" height="321" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
