@@ -68,6 +68,10 @@ The following instructions below is a guide to help you setup minecraft to run f
 - `-XX:+UseFastUnorderedTimeStamps`: Uses a faster but less prescise method for getting timestamps, because we are not running facebook datacenters that needs every logs to be around 1 picosecond accurate or something lmao
 - ⚠️ `-XX:+UseCriticalJavaThreadPriority`: Makes java threads have higher thread priority, can help a lot with latency but may interfere with other programs in your computer, mostly okay unless you're running a very low-end computer.
 
+## Notes
+- From what i've noticed, Enabling huge pages stabilizes FPS a LOT quicker, vs huge pages not being turned on.
+  - It only takes a few seconds in order for frames to reach it's max. while without having it enabled takes about a minute or so.
+
 ## Sources
 These are the sources of where I made my flags!
 - https://exa.y2k.diy/garden/jvm-args/ (because of [#1](https://github.com/weskified/weskers-minecraft-optimization/issues/1))
