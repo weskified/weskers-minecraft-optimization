@@ -86,7 +86,7 @@ sudo systemctl start thp-shmem
 ```
 (or reboot your system)
 
-### JVM Arguments (very important)
+### JVM Arguments
 This is the Java Arguments that I currently personally use, and has actually made the performance of minecraft a lot better!
 ```
 -XX:+UseZGC -XX:+UseCompactObjectHeaders -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseTransparentHugePages -XX:-DontCompileHugeMethods -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1 -Duser.language=en
