@@ -4,6 +4,23 @@ This repository serves as a personal guide on how to make Minecraft run a lot fa
 > [!WARNING]
 > You have been warned. This guide is **a personal guide**. Anything written here is what I do in order to optimize minecraft, and things may make your minecraft run faster or not.. but usually depends.
 
+## Table of Contents
+- [Java Optimizations](#java-optimizations)
+  - [Installing Java](#installing-java)
+    - [Manually](#manually)
+    - [From Launcher](#from-launcher)
+  - [Setting up Huge Pages in your Operating System](#setting-up-huge-pages-in-your-operating-system)
+    - [Windows (Huge Pages)](#windows-huge-pages)
+    - [Linux (temporary)](#linux-temporary)
+    - [Linux (permanent)](#linux-permanent)
+  - [JVM Arguments](#jvm-arguments)
+    - [Args Explanation](#args-explanation)
+    - [Sources](#sources)
+- [Minecraft Optimization Mods](#minecraft-optimization-mods)
+  - [Mods](#mods)
+- [Other Optimizations](#other-optimizations)
+      
+
 ## Java Optimizations
 Optimizing Java is pretty much the first thing that *most* people have in mind when playing minecraft. And that has also been a habit of me to do, and has really helped increasing the performance of mineraft overall instead of having to play through a presentation in a block game.
 
@@ -98,5 +115,16 @@ These are the sources of where I made my flags!
 - https://exa.y2k.diy/garden/jvm-args/ (because of [#1](https://github.com/weskified/weskers-minecraft-optimization/issues/1))
 
 ## Minecraft Optimization Mods
+Minecraft mods are one of the popular and most well known thing that probbably most Minecraft players already know! And this section covers a whole list of minecraft optimization mods that I have been using myself!
+
+> [!NOTE]
+> I am currently maintaining a Minecraft Modpack that focuses on completely optimizing different parts of minecraft! Which focuses more on just FPS increase, surely it MAY be the best, right?
+>
+> Install the [woof! Modpack on Modrinth](https://modrinth.com/modpack/woof!)
+
+### Mods
 
 ## Other Optimizations
+This category mainly focuses outside minecraft, as it also has to do something with your system.
+
+something something just turn off background processes like your browser, discord, etc.
