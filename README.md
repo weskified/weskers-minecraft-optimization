@@ -31,9 +31,18 @@ The following instructions below is a guide to help you setup minecraft to run f
     - Click **Add User or Group**, type your username (the name of the windows user account that you're using currently), then click **OK**.
     - Click **Apply** then restart your computer.
   - Linux
-    - Do i even have to?
-    - In some distributions, THP is enabled by default. Check if your distribution has it on by default with `cat /sys/kernel/mm/transparent_hugepage/enabled`.
-      - If it says `[always] madvise never`, it means it's enabled already.
+    - In linux, we need **Shared THP memory** enabled, as **Anonymous THP memory** will always be enabled, but will not make THP work for java.
+    - To check if you have shmem THP enabled, run `❯ cat /sys/kernel/mm/transparent_hugepage/shmem_enabled`.
+      - You should see the following output of `always within_size advise [never] deny force`. With `never` being sandwhiched by brackets. This means that you dont have shmem THP enabled yet.
+    - To turn that on, run `echo advise | sudo tee /sys/kernel/mm/transparent_hugepage/shmem_enabled`. (temporary, Recommended)
+      - This will turn on **Shared THP memory** in your current session only, and **it will not persist after a reboot**. This is recommended to run before you boot up minecraft.
+      - Once you're done with minecraft, run `echo never | sudo tee /sys/kernel/mm/transparent_hugepage/shmem_enabled` to turn it off!
+    - To turn that on **permanently**, there are two methods for this, But for the safest approach, we will be making a systemd service for this.
+      - To turn on Shared THP "permanently", we need to create a service that runs a command each time we boot.
+      - To do that, let's make a new service by creating a new one: `sudo nano /etc/systemd/system/thp-shmem.service`
+      - Paste [this]() to the file.
+      - Enable it with: `sudo systemctl daemon-reload`, `sudo systemctl enable thp-shmem`, and `sudo systemctl start thp-shmem`
+      - Reboot your system if it works or not, else try to do a different method. (this works for me soooooo)
 - Paste the following JVM arguments to your launcher.
   - The JVM arguments are kept updated until no optimizations can be possibly made anymore.
 
@@ -66,6 +75,21 @@ The following instructions below is a guide to help you setup minecraft to run f
 ## Notes
 - From what i've noticed, Enabling huge pages stabilizes FPS a LOT quicker, vs huge pages not being turned on.
   - It only takes a few seconds in order for frames to reach it's max. while without having it enabled takes about a minute or so.
+
+## Systemd Service for Shmem
+```
+[Unit]
+Description=Enable THP for shared memory
+After=sysinit.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'echo advise > /sys/kernel/mm/transparent_hugepage/shmem_enabled'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+```
 
 ## Sources
 These are the sources of where I made my flags!
