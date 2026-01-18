@@ -1,82 +1,52 @@
 # Wesker's Minecraft Optimization Guide
-This serves as a guide on how I made the Minecraft Client run faster and better! With the use of Java Arguments to get the intended performance gain I can squeeze out to minecraft!
+This repository serves as a personal guide on how to make Minecraft run a lot faster and better! This guide will talk about 3 different categories for optimizations. Some may be explained very bad or some not, but at least written enough to make it understandable for my funky small brain factory that keeps me working for like... idk.
 
 > [!WARNING]
-> These java arguments are not built for **Minecraft Servers**! They are mainly built for the Minecraft Client and is not tested to a server environment.
+> You have been warned. This guide is **a personal guide**. Anything written here is what I do in order to optimize minecraft, and things may make your minecraft run faster or not.. but usually depends.
 
-## Setup
-In order to get actual performance gain, We will be using **Java 25** of any distribution of your choice! But the most popular ones today are mainly [Adoptium Eclipse Termuin](https://adoptium.net/temurin) and [Azul Zulu](https://adoptium.net/temurin)!
-> My older recommendation being GraalVM 25 is pretty much donezo, so any of these two will work just fine!
+## Java Optimizations
+Optimizing Java is pretty much the first thing that *most* people have in mind when playing minecraft. And that has also been a habit of me to do, and has really helped increasing the performance of mineraft overall instead of having to play through a presentation in a block game.
 
-The following instructions below is a guide to help you setup minecraft to run faster, so read them properly!
+### Installing Java
+In order to get some cool gamer FPS gains (or performance), installing juuuuuuust the right Java version is really nice, and for this guide you *will* be installing **Java 25** (at the time of writing), along with a different Java Distribution, with that being [Adoptium Termuin](https://adoptium.net/temurin/releases?version=25&os=any&arch=any) or [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu) (i personally use this one).
 
-- Install the Java Distribution of your choice.
-  - You can do this automatically inside your Launcher, specifically [Prism Launcher](https://prismlauncher.org/). [Modrinth](https://modrinth.com/app) automatically downloads from [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu). so once you've done this.. skip to the third step.
-  - If you want to do this manually, you can continue reading this.
-- Extract the downloaded JDK somewhere, then copy, and paste the executable to your launcher.
-  - To do this, extract the downloaded package for the JDK to a specific path.
-    - For example, extract `azul_zulu_jre25.0.1` into `C:\java\azul_zulu_jre25.0.1` or something.
-    - After that, copy the path for `javaw.exe` (windows) or `java` (linux), can be found inside the `bin` folder.
-    - Paste the path to your launcher, and verify that the executable works properly.
-      - Prism Launcher:
-        - <img width="851" height="408" alt="image" src="https://github.com/user-attachments/assets/346d3de1-8869-44de-ad9a-51a18ac89efb" />
-        - Make sure to turn on `Skip Java compatibility checks`!
-      - Modrinth: 
-        - <img width="984" height="321" alt="image" src="https://github.com/user-attachments/assets/12260808-4053-453d-87a2-d1465ed5ad9b" />
-- Enable **Huge Pages** (windows) or **Transparent Huge Pages** (linux) in your OS.
-  - Windows
-    - To do this, press `Win + R`, type `secpol.msc`, and press `Enter`.
-    - Go to `Security Settings` > `Local Policies` > `User Rights Assignment`.
-    - Inside that, find the **Lock pages in memory** policy and then double click that policy.
-    - Click **Add User or Group**, type your username (the name of the windows user account that you're using currently), then click **OK**.
-    - Click **Apply** then restart your computer.
-  - Linux
-    - In linux, we need **Shared THP memory** enabled, as **Anonymous THP memory** will always be enabled, but will not make THP work for java.
-    - To check if you have shmem THP enabled, run `❯ cat /sys/kernel/mm/transparent_hugepage/shmem_enabled`.
-      - You should see the following output of `always within_size advise [never] deny force`. With `never` being sandwhiched by brackets. This means that you dont have shmem THP enabled yet.
-    - To turn that on, run `echo advise | sudo tee /sys/kernel/mm/transparent_hugepage/shmem_enabled`. (temporary, Recommended)
-      - This will turn on **Shared THP memory** in your current session only, and **it will not persist after a reboot**. This is recommended to run before you boot up minecraft.
-      - Once you're done with minecraft, run `echo never | sudo tee /sys/kernel/mm/transparent_hugepage/shmem_enabled` to turn it off!
-    - To turn that on **permanently**, there are two methods for this, But for the safest approach, we will be making a systemd service for this.
-      - To turn on Shared THP "permanently", we need to create a service that runs a command each time we boot.
-      - To do that, let's make a new service by creating a new one: `sudo nano /etc/systemd/system/thp-shmem.service`
-      - Paste [this]() to the file.
-      - Enable it with: `sudo systemctl daemon-reload`, `sudo systemctl enable thp-shmem`, and `sudo systemctl start thp-shmem`
-      - Reboot your system if it works or not, else try to do a different method. (this works for me soooooo)
-- Paste the following JVM arguments to your launcher.
-  - The JVM arguments are kept updated until no optimizations can be possibly made anymore.
+#### Manually
+Once you downloaded Java in your computer, you can extract the downloaded package to a specific location in your computer, Copy the path, then paste the location of `javaw.exe` (windows) or `java` (linux) to your launcher.
+
+It should look something like this:
+<img width="1080" height="610" alt="image" src="https://github.com/user-attachments/assets/b11bfad2-3563-4c16-adeb-1a9b70049224" />
+(This was done by automatic download from the launcher, but you know what to do anyways.. right?)
+
+#### From Launcher
+Your launcher should be able to just automatically download these two for you, specifically, [Prism Launcher](https://prismlauncher.org/). Which gives you the option to choose either one of them. [Modrinth](modrinth.com/app) automatically installs [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu) by default and you cannot do anything about it lmao.
+
+### Setting up Huge Pages in your Operating System
+This step is pretty much optional, but highly recommended! As this has some noticable changes from the client, from what i've observed, FPS stabilizes a lot faster!
+
+#### Windows (Huge Pages)
+> [!IMPORTANT]
+> This completely enables Huge Pages **PERMANENTLY** in your system! This will basically just make performance better for Memory-intensive applications like Minecraft.
+
+- Press `Win + R`, type `secpol.msc`, and press `Enter`.
+- Go to `Security Settings` > `Local Policies` > `User Rights Assignment`.
+- Inside that, find the **Lock pages in memory** policy and then double click that policy.
+- Click **Add User or Group**, type your username (the name of the windows user account that you're using currently), then click **OK**.
+- Click **Apply** then restart your computer.
+
+#### Linux (temporary)
+```
+echo advise | sudo tee /sys/kernel/mm/transparent_hugepage/shmem_enabled
+```
 
 > [!NOTE]
-> For the last two arguments for the following args below, `-Duser.language=en -Dfile.encoding=UTF-8` can be removed, but is there by personal preference due to me running into issues with very weird witchcraft with different languages and wonky encoding (rarely) :P
+> To turn this off, just replace `echo advise` to `echo never` once you're done playing minecraft. Or just reboot your entire system if you feel like it. :3
 
-## JVM Arguments for Java 25
+#### Linux (permanent)
 ```
--XX:+UseZGC -XX:+UseCompactObjectHeaders -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseTransparentHugePages -XX:-DontCompileHugeMethods -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1 -Duser.language=en
+sudo nano /etc/systemd/system/thp-shmem.service
 ```
 
-> [!WARNING]
-> For windows, replace `-XX:+UseTransparentHugePages` with `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`!
-> In linux, I do not recommend merging the two together.
-
-### Args Explanation
-> [!WARNING]
-> This was written on 1 am, some explanations may not be as accurate from what the arguments actually does, so read carefully and maybe trust your guts if you feel like something is explained wrong here.
-
-- `-XX:+UseZGC`: Enables the ZGC, basically like a garbage collector that doesnt force minecraft to freeze for too long because it has to do it's thing before you can start getting frames again lol
-- `-XX:+UseCompactObjectHeaders`: Newer feature in Java 25 which "enables a new way for Java objects to be represented in heap that results in less memory usage and better performance."
-- ⚠️ `-XX:+DisableExplicitGC`: Ignores any GC calls (or `gc()`) in minecraft mods or code that may interfere with the garbage collection. But with the cost of vanilla not being able to recover after losing allocated memory. (this is alright to have in the flags, unless you're running minecraft with 128mb which you should definetly remove)
-- `-XX:+AlwaysPreTouch`: Tells the JVM to start muching on the allocated memory that you told it to reserve on startup, with the cost of a slower startup. (since it has to start munching on it first)
-- `-XX:+PerfDisableSharedMem`: Disables the JVM from writing performance data to shared memory files. Like telemetry, but for ram. (it also apparently does a lot of r/w witchcraft, so this prevents that from happening)
-- `-XX:+UseTransparentHugePages` or `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`: Enables the use of huge memory pages, reducing the overhead of managing tiny little memory pages since by default all operating systems allocate `4KB`, but this option allows the JVM to allocate `2MB` instead. (of course making managing memory faster or something ???)
-- `-XX:-DontCompileHugeMethods`: i dont know what this does... yet. just following an advice, but may remove it soon if it doesn't do anything.
- `-XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M`: Basically java code starts as bytecode, then the JVM compiles frequently used methods into faster native machine code so minecraft can run faster. with `400MB` allocated of ReservedCodeCacheSize which is a lot more than the normal. (like 240MB i think)
- - `-XX:NmethodSweepActivity=1` Controls how the JVM agressively cleans up old compoled code from the code cache, the value set here is very agressive, lower ones makes it less agressive of course.
-
-## Notes
-- From what i've noticed, Enabling huge pages stabilizes FPS a LOT quicker, vs huge pages not being turned on.
-  - It only takes a few seconds in order for frames to reach it's max. while without having it enabled takes about a minute or so.
-
-## Systemd Service for Shmem
+Paste this inside the systemd service file:
 ```
 [Unit]
 Description=Enable THP for shared memory
@@ -91,6 +61,42 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 ```
 
-## Sources
+Enable it with:
+```
+sudo systemctl daemon-reload
+sudo systemctl enable thp-shmem
+sudo systemctl start thp-shmem
+```
+(or reboot your system)
+
+### JVM Arguments (very important)
+This is the Java Arguments that I currently personally use, and has actually made the performance of minecraft a lot better!
+```
+-XX:+UseZGC -XX:+UseCompactObjectHeaders -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseTransparentHugePages -XX:-DontCompileHugeMethods -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1 -Duser.language=en
+```
+
+> [!WARNING]
+> For windows, replace `-XX:+UseTransparentHugePages` with `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`!
+> In linux, I do not recommend merging the two together.
+
+#### Args Explanation
+> [!WARNING]
+> This was written on 1 am, some explanations may not be as accurate from what the arguments actually does, so read carefully and maybe trust your guts if you feel like something is explained wrong here.
+
+- `-XX:+UseZGC`: Enables the ZGC, basically like a garbage collector that doesnt force minecraft to freeze for too long because it has to do it's thing before you can start getting frames again lol
+- `-XX:+UseCompactObjectHeaders`: Newer feature in Java 25 which "enables a new way for Java objects to be represented in heap that results in less memory usage and better performance."
+- ⚠️ `-XX:+DisableExplicitGC`: Ignores any GC calls (or `gc()`) in minecraft mods or code that may interfere with the garbage collection. But with the cost of vanilla not being able to recover after losing allocated memory. (this is alright to have in the flags, unless you're running minecraft with 128mb which you should definetly remove)
+- `-XX:+AlwaysPreTouch`: Tells the JVM to start muching on the allocated memory that you told it to reserve on startup, with the cost of a slower startup. (since it has to start munching on it first)
+- `-XX:+PerfDisableSharedMem`: Disables the JVM from writing performance data to shared memory files. Like telemetry, but for ram. (it also apparently does a lot of r/w witchcraft, so this prevents that from happening)
+- `-XX:+UseTransparentHugePages` or `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`: Enables the use of huge memory pages, reducing the overhead of managing tiny little memory pages since by default all operating systems allocate `4KB`, but this option allows the JVM to allocate `2MB` instead. (of course making managing memory faster or something ???)
+- `-XX:-DontCompileHugeMethods`: i dont know what this does... yet. just following an advice, but may remove it soon if it doesn't do anything.
+ `-XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M`: Basically java code starts as bytecode, then the JVM compiles frequently used methods into faster native machine code so minecraft can run faster. with `400MB` allocated of ReservedCodeCacheSize which is a lot more than the normal. (like 240MB i think)
+ - `-XX:NmethodSweepActivity=1` Controls how the JVM agressively cleans up old compoled code from the code cache, the value set here is very agressive, lower ones makes it less agressive of course.
+
+#### Sources
 These are the sources of where I made my flags!
 - https://exa.y2k.diy/garden/jvm-args/ (because of [#1](https://github.com/weskified/weskers-minecraft-optimization/issues/1))
+
+## Minecraft Optimization Mods
+
+## Other Optimizations
