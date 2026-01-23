@@ -4,6 +4,11 @@ This repository serves as a personal guide on how to make Minecraft run a lot fa
 > [!WARNING]
 > You have been warned. This guide is **a personal guide**. Anything written here is what I do in order to optimize minecraft, and things may make your minecraft run faster or not.. but usually depends.
 
+> [!CAUTION]
+> Before you proceed, this is NOT written to make Minecraft servers run better at all. So if you're here to expect some cool ass big list of arguments to use on a server, just make sure you also modify it to be built more for a server environment, and not just copy paste whatever you see here.
+>
+> I may make this guide also for minecraft servers soon, if i ever get to host my own minecraft servers again for fun! but not now.
+
 ## System Specs
 These are my system specs, so you know why a statistic is like that I guess.\
 This isn't really useful much.. yet. Other than being a useful reference to any benchmarks I plan on doing soon.
