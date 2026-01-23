@@ -4,6 +4,16 @@ This repository serves as a personal guide on how to make Minecraft run a lot fa
 > [!WARNING]
 > You have been warned. This guide is **a personal guide**. Anything written here is what I do in order to optimize minecraft, and things may make your minecraft run faster or not.. but usually depends.
 
+## System Specs
+These are my system specs, so you know why a statistic is like that I guess.\
+This isn't really useful much.. yet. Other than being a useful reference to any benchmarks I plan on doing soon.
+
+OS: CachyOS Linux (x64)\
+CPU: Intel i3-10100\
+GPU: AMD RX580 2048SP\
+RAM: Kingston Beast (16GB) + Kingston Fury (8GB) 2666MHz\
+MOBO: Gigabyte H510M K V2
+
 ## Table of Contents
 - [Java Optimizations](#java-optimizations)
   - [Installing Java](#installing-java)
@@ -125,6 +135,21 @@ Minecraft mods are one of the popular and most well known thing that probbably m
 ### Mods
 
 ## Other Optimizations
-This category mainly focuses outside minecraft, as it also has to do something with your system.
+Other optimizations that does not really change much for big powerful NASA computer havers, but really helps a lot for people who doesnt have that.
 
-something something just turn off background processes like your browser, discord, etc.
+### Frame Related Optimizations
+There are a lot of applications that can deal a minimal to a heavy dent in your Frames, and for that we can blame Electron-based applications!
+
+These applications, like Discord, Spotify, etc. can completely degrade your FPS when playing, which can completely tank your frames by a lot. by my testing, my frames went from from 3100 fps to 2300 fps with one Electron applicatioon (discord in this case) running in the background with minecraft open. making it a whopping **~25.8%** decrease in frames. and disabling [Hardware Acceleration](https://en.wikipedia.org/wiki/Hardware_acceleration), an option that is available on pretty much all electron applications can help with that.
+
+<img width="1007" height="450" alt="image" src="https://github.com/user-attachments/assets/0129a33d-105b-4623-8069-12ad5ef11bf7" />
+
+
+> [!CAUTION]
+> **Disabling Hardware Acceleration is pretty much not recommended on a system with an iGPU (Integrated Graphics) only**. As this will make the application run REALLY choppy and bad. And is only recommended to a System that has both GPU and iGPU.
+
+> [!NOTE]
+> I am not sure if it actually makes it really choppy but its worth trying though since i am too lazy to try it myself lol
+
+### Processing Related Optimizations
+simply close any applications that is using a lot of processing power
