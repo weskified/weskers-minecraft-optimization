@@ -10,7 +10,7 @@ This isn't really useful much.. yet. Other than being a useful reference to any 
 
 OS: CachyOS Linux (x64)\
 CPU: Intel i3-10100\
-GPU: AMD RX580 2048SP\
+GPU: AMD RX580 2048SP (core overclocked to 1450MHz)\
 RAM: Kingston Beast (16GB) + Kingston Fury (8GB) 2666MHz\
 MOBO: Gigabyte H510M K V2
 
