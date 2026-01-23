@@ -29,6 +29,8 @@ MOBO: Gigabyte H510M K V2
 - [Minecraft Optimization Mods](#minecraft-optimization-mods)
   - [Mods](#mods)
 - [Other Optimizations](#other-optimizations)
+  - [Frame Related Optimizations](#frame-related-optimizations)
+  - [Processing Related Optimizations](#processing-related-optimizations)
       
 
 ## Java Optimizations
@@ -152,4 +154,6 @@ These applications, like Discord, Spotify, etc. can completely degrade your FPS 
 > I am not sure if it actually makes it really choppy but its worth trying though since i am too lazy to try it myself lol
 
 ### Processing Related Optimizations
-simply close any applications that is using a lot of processing power
+simply close any applications that is using a lot of processing power. that's it. literally.
+
+But to know more about it its mainly just to like... make world loading faster and stuff like that, has a lot to help when playing in singleplayer.
