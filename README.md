@@ -81,7 +81,7 @@ These are the Java Arguments that I **PERSONALLY** use for Minecraft, it's not t
 ```
 
 > [!NOTE]
-> The argument makes the JRE use **Transparent Huge Pages** in linux. For more information about that, Check out the Huge Pages part in the System Optimizations section.
+> The argument makes the JRE use **Transparent Huge Pages** in linux. For more information about that, Check out the [Huge Pages](#huge-pages) part in the [System Optimizations](#system-optimizations) section.
 >
 > Having the flag stay on the args list does nothing, and just leaves an error on the minecraft logs. That's it... (its safe to keep it there unless you want to turn on Huge Pages)
 
@@ -90,21 +90,21 @@ These are the Java Arguments that I **PERSONALLY** use for Minecraft, it's not t
 
 #### Java Arguments Explanation
 - `-XX:+UseZGC`: Enables the Z Garbage Collector, a low-latency GC that does most of its work concurrently with your application threads. This means Minecraft won't freeze as much during garbage collection because ZGC doesn't need to pause everything to clean up memory.
-- 
+
 - `-XX:+UseCompactObjectHeaders`: A newer feature in Java 25 that reduces the memory overhead of object headers in the heap, resulting in lower memory usage and better performance overall.
-- 
+  
 - ⚠️ `-XX:+DisableExplicitGC`: Tells the JVM to ignore manual garbage collection calls (like `System.gc()`) that might be in Minecraft mods or code. This prevents poorly-timed GC from messing with ZGC's optimized collection schedule. The downside is that some code relying on explicit GC might not reclaim memory as expected, but this is rarely an issue unless you're running on extremely limited memory.
-- 
+  
 - `-XX:+AlwaysPreTouch`: Forces the JVM to actually touch and initialize all allocated heap memory during startup, rather than doing it lazily as needed. This makes startup slower but can improve runtime performance by avoiding page faults later.
-- 
+  
 - `-XX:+PerfDisableSharedMem`: Disables the JVM from writing performance statistics to `/tmp/hsperfdata_*` shared memory files. This reduces disk I/O operations that can cause microstutters.
-- 
+  
 - `-XX:+UseTransparentHugePages` or `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`: Enables the use of larger memory pages (2MB instead of the default 4KB). This reduces the overhead of managing the page table since the JVM needs to track fewer, larger pages instead of tons of tiny ones.
-- 
+  
 - `-XX:-DontCompileHugeMethods`: Allows the JIT compiler to compile very large methods that it would normally skip. By default, the JVM avoids compiling huge methods because they take a long time to compile, but this flag forces it to compile them anyway for potential performance gains.
-- 
+  
 - `-XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M`: These control the code cache where the JVM stores compiled native code. Java starts as bytecode, then the JIT compiler converts frequently-used methods into faster native machine code. These flags allocate 400MB total for the code cache (vs the default ~240MB) and divide it into segments for different types of compiled code.
-- 
+  
 - `-XX:NmethodSweepActivity=1`: Controls how aggressively the JVM cleans up old/unused compiled code from the code cache. A value of 1 is very aggressive, meaning it'll more readily remove old compiled methods to make room for new ones.
 
 ##### Sources
