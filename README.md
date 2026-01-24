@@ -221,8 +221,53 @@ Another way to do this is to instead disable **Hardware Acceleration** to the El
 > [!WARNING]
 > Disabling **Hardware Acceleration** completely forces the electron application to render elements using your CPU instead. This is recommended if you have a pretty powerful CPU but it doesn't come with an iGPU.
 
-#### The Fourth Reason: Your Memory belongs to the Electron Applications now
+#### The Fourth Reason: Your Memory belongs to the Electron Application now
 Each Electron app demands **200MB to 400MB of RAM** just to exist because it's packaging an entire browser and JavaScript runtime (node.js), then progressively leaks memory over time (Discord increases to over a gigabyte after running for days for some fucking reason), hoards thousands of chat messages and UI elements you'll never look at again (lol), and forces your RAM to hold four complete duplicate copies of Chromium, image decoders, fonts, and audio libraries when you run multiple apps. so your system starts using swap memory making everything slow, generates heat that throttles your CPU and GPU, drains your laptop battery with constant background activity, and pollutes your CPU cache with redundant code instead of your actual working data... awesome!!
 
 ## Other Optimizations
-othjer optimizations. soon!!!!!!!!!!!!
+This section covers other types of optimizations that can benefit and make Minecraft run much more faster!
+
+### Minecraft Mods
+These list of minecraft mods are popular and widely used by many optimization modpacks!
+
+#### Rendering
+Mods that can help you get gamer frames! Ooooooohhh you're so tempted to download all of them without reading what each of them does huh?
+- [Sodium](https://modrinth.com/mod/sodium)
+  - Not recommended for NeoForge (1.21.5 and later only)
+- [Embeddium](https://modrinth.com/mod/embeddium)
+  - Recommended for NeoForge (1.21.4 and older only)
+    - **Why?**: Embeddium beats Sodium on the said versions in my benchmarks. I have no clue why Sodium is so bad for versions lower than what i recommended (1.21.5+) but I guess i'll leave it for the smarter guys to explain why. Because i'm not really that smart..
+- [VulkanMod](https://modrinth.com/mod/vulkanmod)
+  - Recommended **ONLY IF YOU DO NOT PLAN ON USING SHADERS, OR ANY MODS LISTED UNDER THE [INCOMPATIBILITY LIST](https://github.com/xCollateral/VulkanMod/discussions/226) OF THIS MOD**!
+- [Entity Culling](https://modrinth.com/mod/entityculling)
+- [ImmediatelyFast](https://modrinth.com/mod/immediatelyfast)
+- [Exordium](https://modrinth.com/mod/exordium)
+  - This mod caps the FPS to 30 by default, but can be configured to render the GUI to 60 FPS on mod settings. Works really nice in conjunction with ImmediatelyFast.
+  - This only applies to vanilla GUIs, it may not work to other mods with custom elements.
+- [Particle Core](https://modrinth.com/mod/particle-core)
+- [AsyncParticles](https://modrinth.com/mod/asyncparticles) (DISCONTINUED)
+  - Kind of okay for Fabric and NeoForge
+    - Has some issues with rendering particles from other mods. But that's pretty much what I've discovered mostly. Still can be a nice alternative for Particle Core.
+  - Not recommended to be used with Particle Core.
+- [More Culling](https://modrinth.com/mod/moreculling)
+
+#### Memory
+Mods that can help with memory management, or other magic.
+- [FerriteCore](https://modrinth.com/mod/ferrite-core)
+ 
+#### Networking
+This category of mods may or may not help much, but is here anyways as a recommendation!
+- Krypton ([fabric](https://modrinth.com/mod/krypton), [neoforge](https://modrinth.com/mod/krypton-foxified))
+- Krypton FNP ([fabric](https://modrinth.com/mod/kryptonfnp-patcher), [neoforge](https://modrinth.com/mod/krypton-fnp))
+- [Modern Netty](https://modrinth.com/mod/modern-netty)
+  - for MacOS or Linux only. Windows does not benefit from this mod.
+
+#### Other Mods
+Other optimization mods that does not fit into any other categories, or does not have any categories for it (yet).
+- [Lithium](https://modrinth.com/mod/lithium)
+- [ModernFix](https://modrinth.com/mod/modernfix) (use [ModernFix mVUS](https://modrinth.com/mod/modernfix) if on fabric)
+  - This is not a drop and forget about it type of mod, make sure you configure the mixins first so you can actually get some noticable performance increase. Don't be like those people.
+- [kennytv's epic force close loading screen mod for fabric](https://modrinth.com/mod/forcecloseworldloadingscreen)
+- [Not Enough Recipe Book](https://modrinth.com/mod/notenoughrecipebook)
+  - Recommended for modded modpacks, especially hosted as a server!
+  - It is recommended to have an alternative recipe book like JEI, REI, or any similar derivatives. As this mod completely gets rid of the vanilla recipe book.
