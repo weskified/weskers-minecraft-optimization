@@ -40,8 +40,13 @@ These are my system specs, It's here to show you what kind of machine I am runni
       - [Solution](#solution)
     - [The Third Reason: Your GPU is Crying](#the-third-reason-your-gpu-is-crying)
       - [Solution](#solution)
-    - [The Fourth Reason: Your Memory belongs to the Electron Applications now](#the-fourth-reason-your-memory-belongs-to-the-electron-applications-now)
+    - [The Fourth Reason: Your Memory belongs to the Electron Application now](#the-fourth-reason-your-memory-belongs-to-the-electron-application-now)
 - [Other Optimizations](#other-optimizations)
+  - [Minecraft Mods](#minecraft-mods)
+    - [Rendering](#rendering)
+    - [Memory](#memory)
+    - [Networking](#networking)
+    - [Other Mods](#other-mods)
 
 ## Java Optimizations
 Tweaking the JRE (Java Runtime Environment) is pretty much the first thing that *some* people has in mind when having a new fresh install of Minecraft. as if you don't, you'll pretty much suffer from performance degradation which most people probbably experience until they search up "How to make minecraft run faster" on youtube or something. Which in some days, i have seen people like that... don't be like them.
