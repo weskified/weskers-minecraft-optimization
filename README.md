@@ -35,6 +35,12 @@ These are my system specs, It's here to show you what kind of machine I am runni
     - [Linux (temporary)](#linux-temporary)
     - [Linux (permanent, service based)](#linux-permanent-service-based)
   - [Electron Applications](#electron-applications)
+    - [The First Reason](#the-first-reason)
+    - [The Second Reason: CPU go brrrrrrrrrrrr (in a bad way)](#the-second-reason-cpu-go-brrrrrrrrrrrr-in-a-bad-way)
+      - [Solution](#solution)
+    - [The Third Reason: Your GPU is Crying](#the-third-reason-your-gpu-is-crying)
+      - [Solution](#solution)
+    - [The Fourth Reason: Your Memory belongs to the Electron Applications now](#the-fourth-reason-your-memory-belongs-to-the-electron-applications-now)
 - [Other Optimizations](#other-optimizations)
 
 ## Java Optimizations
@@ -186,7 +192,37 @@ sudo systemctl start thp-shmem
 
 ### Electron Applications
 Oh boy! ...oh no!\
-Electron applications is the most biggest graphics munchers that can either tank down your FPS by a little.. to a LOT. And this section covers a solution to fix that performance decrease, with a few requirements in mind in order to actually have this work as intended. (in my system it does, ..does yours do?)
+Electron Applications are bundled with Chromium. We've been using them a lot, and to be completely honest they aren't really nice.. especially to our very poor computers. And if you're wondering why.. here's a few reasons why!
+
+#### The First Reason
+Every electron application that you run is literally running a browser ***separately***. Consider Discord, Spotify, etc. as a browser now that you know that! And your poor processor is like that one guy in a traffic jam trying to fix it.
+
+#### The Second Reason: CPU go brrrrrrrrrrrr (in a bad way)
+Every electron application runs on JavaScript. If that wasn't obvious enough for a website... while they're pretty fast, it's still interpreted code doing way more work than native code. It's like you (the Processor) is translating a speech from English to German and then Chinese (or Mandarin) just to make the other side of the application to understand what you're actually trying to do. On top of that, each app spawns 6-8 separate processes that constantly talk to each other, freezes the whole UI when JavaScript gets busy (like loading a huge playlist), and brings its own duplicate copy of every library so five apps means your CPU does the same job five times over for no reason.
+
+##### Solution
+Use an alternative version of the application, like for Discord, use [Vencord](https://vencord.dev/download/) or [Equicord](https://equicord.org/download/)!
+
+Alternatives of Discord like these act a lot differently. Instead of running an Electron application bundled with Chromium, they run a Webview of a page (in this case, Discord: `https://discord.com/app`) which completely removes the problem of using too much CPU, and itself being an electron application in the first place.
+
+This does come with a sacrifice, with you losing Discord RPC unless you have aRPC to come with it. (in this case [GoofCord](https://github.com/Milkshiift/GoofCord) is a nicer alternative)
+
+#### The Third Reason: Your GPU is Crying
+Your GPU is crying because of Electron applications. And the reasoning behind this is because each app demands its own GPU rendering pipeline making your graphics card juggle everything inefficiently, spawns dozens of layers for every little animation and UI effect, and stuffs your VRAM with duplicate copies of the same fonts and textures over and over. Five apps might waste **500MB** to like **1GB** of VRAM just rendering the same redundant UI elements separately when they could share resources like normal programs.
+
+##### Solution
+If you have an iGPU (Integrated Graphics), you can ask the electron application to use your iGPU instead of your GPU, which definetly frees up some space for the GPU to render actual important stuff with!
+
+Another way to do this is to instead disable **Hardware Acceleration** to the Electron Application.
+
+<img width="907" height="340" alt="image" src="https://github.com/user-attachments/assets/faca4045-8633-453b-bfd5-84265cdd521f" />
+
+
+> [!WARNING]
+> Disabling **Hardware Acceleration** completely forces the electron application to render elements using your CPU instead. This is recommended if you have a pretty powerful CPU but it doesn't come with an iGPU.
+
+#### The Fourth Reason: Your Memory belongs to the Electron Applications now
+Each Electron app demands **200MB to 400MB of RAM** just to exist because it's packaging an entire browser and JavaScript runtime (node.js), then progressively leaks memory over time (Discord increases to over a gigabyte after running for days for some fucking reason), hoards thousands of chat messages and UI elements you'll never look at again (lol), and forces your RAM to hold four complete duplicate copies of Chromium, image decoders, fonts, and audio libraries when you run multiple apps. so your system starts using swap memory making everything slow, generates heat that throttles your CPU and GPU, drains your laptop battery with constant background activity, and pollutes your CPU cache with redundant code instead of your actual working data... awesome!!
 
 ## Other Optimizations
-This section focuses on other stuff.
+othjer optimizations. soon!!!!!!!!!!!!
