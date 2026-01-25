@@ -6,6 +6,9 @@ This repository serves as a personal guide on how I made Minecraft run a lot fas
 
 > [!CAUTION]
 > Before you proceed to reading this, **This is not a complete guide on how to optimize Minecraft Servers**! The main focus of this repository is to optimize the Minecraft Client, just to make it completely clear for you.
+>
+> I do plan on creating an Arguments list built for Minecraft Servers soon! but for now, This guide focuses mainly on the Client for now (Singleplayer).
+
 
 ## System Specifications
 These are my system specs, It's here to show you what kind of machine I am running and doing my benchmarks on to Minecraft. These are to be used as a reference to my benchmarks, and for you to tell how and why im getting THAT much frames in a specific benchmark or something. But while this isn't used for anything much for NOW, it's here just in case when i really get into doing a proper benchmark.
