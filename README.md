@@ -56,7 +56,7 @@ Tweaking the JRE (Java Runtime Environment) is pretty much the first thing that 
 > [!NOTE]
 > "**Java Distributions**" as in OpenJDK, Adoptium, Azul Zulu, GraalVM, etc. Like those completely different smart guy companies that makes completely different Java versions that some people talk about and run minecraft on. like me lol
 
-First of all, I'm gonna be real here. The provided mojang JRE fucking sucks (apparently), so in order to get some performance increase, changing the Java Distribution that you're using can allow Minecraft to run better. and the best two distributions that I can recommend you is either Adoptium (for stability) and Azul Zulu (for performance). But both works well, but for myself i personally use Azul Zulu because why not?
+First of all, I'm gonna be real here. The provided mojang JRE fucking sucks (apparently), so in order to get some performance increase, changing the Java Distribution that you're using can allow Minecraft to run better. and the best two distributions that I can recommend you is either [Termuin](https://adoptium.net/temurin/releases?version=25&os=any&arch=any) (for stability) and [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu) (for performance). But both works well, but for myself I use [Azul Zulu](https://www.azul.com/downloads/?version=java-25-lts&package=jdk#zulu) because why not?
 
 ### Installing a new Java Distribution
 In this guide, we will be installing the **latest LTS (Long-Term Support) release**, being Java 25. As it offers a lot of optimizations since Java 21. (and runs a lot better)
@@ -207,10 +207,10 @@ Electron Applications are bundled with Chromium. We've been using them a lot, an
 Every electron application that you run is literally running a browser ***separately***. Consider Discord, Spotify, etc. as a browser now that you know that! And your poor processor is like that one guy in a traffic jam trying to fix it.
 
 #### The Second Reason: CPU go brrrrrrrrrrrr (in a bad way)
-Every electron application runs on JavaScript. If that wasn't obvious enough for a website... while they're pretty fast, it's still interpreted code doing way more work than native code. It's like you (the Processor) is translating a speech from English to German and then Chinese (or Mandarin) just to make the other side of the application to understand what you're actually trying to do. On top of that, each app spawns 6-8 separate processes that constantly talk to each other, freezes the whole UI when JavaScript gets busy (like loading a huge playlist), and brings its own duplicate copy of every library so five apps means your CPU does the same job five times over for no reason.
+Every electron application runs on JavaScript (node.js for things to work). If that wasn't obvious enough for a website... while they're pretty fast, it's still interpreted code doing way more work than native code. It's like you (the Processor) is translating a speech from English to German and then Chinese (or Mandarin) just to make the other side of the application to understand what you're actually trying to do. On top of that, each app spawns 6-8 separate processes that constantly talk to each other, freezes the whole UI when JavaScript gets busy (like loading a huge playlist on spotify), and brings its own duplicate copy of every library so five apps means your CPU does the same job five times over for no reason.
 
 ##### Solution
-Use an alternative version of the application, like for Discord, use [Vencord](https://vencord.dev/download/) or [Equicord](https://equicord.org/download/)!
+Use an alternative version of the application that would load a WebView of the app instead of being loaded as a separate browser or something, like for Discord, use [Vencord](https://vencord.dev/download/) or [Equicord](https://equicord.org/download/)!
 
 Alternatives of Discord like these act a lot differently. Instead of running an Electron application bundled with Chromium, they run a Webview of a page (in this case, Discord: `https://discord.com/app`) which completely removes the problem of using too much CPU, and itself being an electron application in the first place.
 
@@ -234,49 +234,14 @@ Another way to do this is to instead disable **Hardware Acceleration** to the El
 Each Electron app demands **200MB to 400MB of RAM** just to exist because it's packaging an entire browser and JavaScript runtime (node.js), then progressively leaks memory over time (Discord increases to over a gigabyte after running for days for some fucking reason), hoards thousands of chat messages and UI elements you'll never look at again (lol), and forces your RAM to hold four complete duplicate copies of Chromium, image decoders, fonts, and audio libraries when you run multiple apps. so your system starts using swap memory making everything slow, generates heat that throttles your CPU and GPU, drains your laptop battery with constant background activity, and pollutes your CPU cache with redundant code instead of your actual working data... awesome!!
 
 ## Other Optimizations
-This section covers other types of optimizations that can benefit and make Minecraft run much more faster!
+This section covers other optimizations that can benefit from playing minecraft!
 
 ### Minecraft Mods
-These list of minecraft mods are popular and widely used by many optimization modpacks!
+> [!NOTE]
+> I am currently making my own Optimization modpack for Mineraft!\
+> This optimization modpack's primary focus is to make different parts of minecraft run faster, perform better, instead of mainly focusing on Rendering and Singleplayer performance. And pretty much differentiates from other optimization modpacks out there due to the main reason of making this at the first place is to be used as a base for my Minecraft Modpacks. So I don't have to keep on configuring the same mod again and again for each new modpacks I make which is kind of tiring and repetetive.
+> 
+> [Download the Modpack](https://modrinth.com/modpack/woof!)
 
-#### Rendering
-Mods that can help you get gamer frames! Ooooooohhh you're so tempted to download all of them without reading what each of them does huh?
-- [Sodium](https://modrinth.com/mod/sodium)
-  - Not recommended for NeoForge (1.21.5 and later only)
-- [Embeddium](https://modrinth.com/mod/embeddium)
-  - Recommended for NeoForge (1.21.4 and older only)
-    - **Why?**: Embeddium beats Sodium on the said versions in my benchmarks. I have no clue why Sodium is so bad for versions lower than what i recommended (1.21.5+) but I guess i'll leave it for the smarter guys to explain why. Because i'm not really that smart..
-- [VulkanMod](https://modrinth.com/mod/vulkanmod)
-  - Recommended **ONLY IF YOU DO NOT PLAN ON USING SHADERS, OR ANY MODS LISTED UNDER THE [INCOMPATIBILITY LIST](https://github.com/xCollateral/VulkanMod/discussions/226) OF THIS MOD**!
-- [Entity Culling](https://modrinth.com/mod/entityculling)
-- [ImmediatelyFast](https://modrinth.com/mod/immediatelyfast)
-- [Exordium](https://modrinth.com/mod/exordium)
-  - This mod caps the FPS to 30 by default, but can be configured to render the GUI to 60 FPS on mod settings. Works really nice in conjunction with ImmediatelyFast.
-  - This only applies to vanilla GUIs, it may not work to other mods with custom elements.
-- [Particle Core](https://modrinth.com/mod/particle-core)
-- [AsyncParticles](https://modrinth.com/mod/asyncparticles) (DISCONTINUED)
-  - Kind of okay for Fabric and NeoForge
-    - Has some issues with rendering particles from other mods. But that's pretty much what I've discovered mostly. Still can be a nice alternative for Particle Core.
-  - Not recommended to be used with Particle Core.
-- [More Culling](https://modrinth.com/mod/moreculling)
-
-#### Memory
-Mods that can help with memory management, or other magic.
-- [FerriteCore](https://modrinth.com/mod/ferrite-core)
- 
-#### Networking
-This category of mods may or may not help much, but is here anyways as a recommendation!
-- Krypton ([fabric](https://modrinth.com/mod/krypton), [neoforge](https://modrinth.com/mod/krypton-foxified))
-- Krypton FNP ([fabric](https://modrinth.com/mod/kryptonfnp-patcher), [neoforge](https://modrinth.com/mod/krypton-fnp))
-- [Modern Netty](https://modrinth.com/mod/modern-netty)
-  - for MacOS or Linux only. Windows does not benefit from this mod.
-
-#### Other Mods
-Other optimization mods that does not fit into any other categories, or does not have any categories for it (yet).
-- [Lithium](https://modrinth.com/mod/lithium)
-- [ModernFix](https://modrinth.com/mod/modernfix) (use [ModernFix mVUS](https://modrinth.com/mod/modernfix) if on fabric)
-  - This is not a drop and forget about it type of mod, make sure you configure the mixins first so you can actually get some noticable performance increase. Don't be like those people.
-- [kennytv's epic force close loading screen mod for fabric](https://modrinth.com/mod/forcecloseworldloadingscreen)
-- [Not Enough Recipe Book](https://modrinth.com/mod/notenoughrecipebook)
-  - Recommended for modded modpacks, especially hosted as a server!
-  - It is recommended to have an alternative recipe book like JEI, REI, or any similar derivatives. As this mod completely gets rid of the vanilla recipe book.
+#### Rendering Optimizations
+Minecraft mods that mainly focus on making the game run smoother and faster by improving how graphics and other stuff that needs to be rendered are processed.
