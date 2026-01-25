@@ -101,6 +101,9 @@ These are the Java Arguments that I **PERSONALLY** use for Minecraft, it's not t
 > For windows, replace `-XX:+UseTransparentHugePages` with `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`! In linux, I do not recommend using the two together.
 
 #### Java Arguments Explanation
+> [!WARNING]
+> Any arguments marked with ⚠️ can be a problem over a specific issue. So if you run into any, feel free to remove them!
+
 - `-XX:+UseZGC`: Enables the Z Garbage Collector, a low-latency GC that does most of its work concurrently with your application threads. This means Minecraft won't freeze as much during garbage collection because ZGC doesn't need to pause everything to clean up memory.
 
 - `-XX:+UseCompactObjectHeaders`: A newer feature in Java 25 that reduces the memory overhead of object headers in the heap, resulting in lower memory usage and better performance overall.
