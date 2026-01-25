@@ -31,9 +31,7 @@ This guide will talk about quite a lot of things, ranging from different categor
   - [Electron Applications](#electron-applications)
     - [The First Reason](#the-first-reason)
     - [The Second Reason: CPU go brrrrrrrrrrrr (in a bad way)](#the-second-reason-cpu-go-brrrrrrrrrrrr-in-a-bad-way)
-      - [Solution](#solution)
     - [The Third Reason: Your GPU is Crying](#the-third-reason-your-gpu-is-crying)
-      - [Solution](#solution)
     - [The Fourth Reason: Your Memory belongs to the Electron Application now](#the-fourth-reason-your-memory-belongs-to-the-electron-application-now)
 - [Server Optimizations](#server-optimizations)
 
@@ -74,7 +72,7 @@ Am i right? ..well, im not really sure about this. But all i know that it works,
 For this guide, we will be installing the latest LTS (Long-Term Support) version of Java, which would be Java 25! With a tutorial on how to do it via Launcher, or manually installing it and setting it via Launcher.
 
 #### Installing via Launcher
-I think pretty much all of us uses a launcher to run Minecraft. And the most popular one that people know is Prism Launcher and Modrinth. But for this guide, we will be using Prism Launcher instead, as it is the best universal launcher for Minecraft to ever exist.
+I think pretty much all of us uses a launcher to run Minecraft. And the most popular one that people know is [Prism Launcher](https://prismlauncher.org/download/) and [Modrinth](https://modrinth.com/app). But for this guide, we will be using Prism Launcher instead, as it is the best universal launcher for Minecraft to ever exist.
 
 Anyways, The installation should be pretty simple, go to **Settings**.
 <img width="1244" height="1128" alt="image" src="https://github.com/user-attachments/assets/5f9a02c4-cb1a-4639-a8bd-1865567a1698" />
@@ -104,6 +102,8 @@ These Java arguments are the ones that I use to play Minecraft with. It's not re
 > [!CAUTION]
 > My arguments for Java uses **Huge Pages**. I recommend that you turn this thing on in your system!\
 > The argument does nothing when you leave it on the list. Which just leaves a warning on the logs everytime you boot Minecraft.
+>
+> To know more about **Huge Pages**, and how to enable it, Visit [this section](#huge-pages).
 
 > [!CAUTION]
 > For windows, replace `-XX:+UseTransparentHugePages` with `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`!\
@@ -168,7 +168,7 @@ When chunks load slowly in Minecraft, the computer has to find which old pages (
 But with enabling **Huge Pages**, it basically converts an entire Minecraft chunk of 16x16 into 64x64, or potentially even more! In our case, allocating about 2MB for each page of memory, which makes:
 - Your processor no longer keeps track of tiny 4KB pages, and tracks huge 2MB pages instead.
 - Your processor has a special cache named [TLB](https://en.wikipedia.org/wiki/Translation_lookaside_buffer) that remembers where these pages are. And by enabling **Huge Pages**, each pages cover way more memory, so it finds it a lot faster and way more often.
-  - Think of a speedrunner finding the stronghold with just Ender Eyes, while this is the usual way that our system functions with just 4KB of pages, this process can be made faster if we enable Huge Pages, and in a Minecraft way, the speedrunner uses Ninjabrain in order to find the stronghold faster.
+  - Think of a speedrunner finding the stronghold with just Ender Eyes, while this is the usual way that our system functions with just 4KB of pages, finding the stronghold is usually slower this way. and this process can be made faster if we enable Huge Pages, and in a Minecraft way, the speedrunner uses Ninjabrain in order to find the stronghold faster.
 - Applications that uses a lot of RAM spends less time managing memory and more time to actually do other things instead.
 
 #### There are Two Types of Huge Pages
@@ -229,7 +229,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable thp-shmem
 sudo systemctl start thp-shmem
 ```
-
 
 ### Electron Applications
 Oh boy! ...oh no!\
