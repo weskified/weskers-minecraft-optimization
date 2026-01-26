@@ -3,7 +3,7 @@ This is a personal guide made by me, to show to other people on how I made Minec
 This guide will talk about quite a lot of things, ranging from different categories of Optimizations for a Client and Server configuration! Some explanations may be.. bad, some might not. So a bit of reading comprehension is kind of required to this guide lol.
 
 > [!WARNING]
-> If you did not read all of that, this is a **Personal Guide**. written by myself, for me. Basically explaining how I made Minecraft run faster. And information here may be incorrect, which if you find any, feel free to [create an issue](https://github.com/weskified/weskers-minecraft-optimization/issues) mentioning that!
+> If you did not read all of that, this is a **Personal Guide**. written by myself, for me. Basically explaining how I made Minecraft run faster. And some information here may be incorrect, which if you find any, feel free to [create an issue](https://github.com/weskified/weskers-minecraft-optimization/issues) mentioning that!
 
 ## Table of Contents
 - [System Specifications](#system-specifications)
