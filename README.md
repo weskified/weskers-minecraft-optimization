@@ -149,6 +149,39 @@ These Java arguments are the ones that I use to play Minecraft with. It's not re
 > 
 > [Download the Modpack](https://modrinth.com/modpack/woof!)
 
+This is a full list of Minecraft Mods that I use to make minecraft run faster, ranging from popular ones to very niche ones. This list may be a lot more different than literally any other mod lists similar to this, since pretty much all of the mods included here are the ones that I have used over the days of making my own modpacks and hosting my own minecraft server with it.
+
+This list contains recommendations for Fabric and NeoForge!
+
+#### Rendering Mods
+A list of mods that specifically optimizes Rendering for Minecraft.
+
+- Sodium
+  - Recommended for **all versions** of Fabric
+  - Recommended for versions **1.21.5+** for NeoForge
+    - For versions **1.21.4<**, use Embeddium instead
+      - The reason for this is because apparently Embeddium performs much better than Sodium because of some sorcery that I cannot explain myself. But trust me, it just performs a lot better.
+- Entity Culling
+  - Recommended for **all versions** of Fabric and NeoForge
+- ImmediatelyFast
+  - Recommended for **all versions** of Fabric and NeoForge
+- More Culling
+  - Recommended for **all versions** of Fabric and NeoForge
+- Particle Core
+  - Recommended for **all versions** of Fabric and NeoForge
+- ScalableLux
+  - Recommended for **all versions** of Fabric and NeoForge
+- VulkanMod
+  - Recommended for **all versions** of Fabric and NeoForge
+    - Recommended for pure vanilla only, this mod has a lot of Incompatibilities to other mods which will probbably not work unless a compatibility mod is created for that specific mod.
+- Ixeris
+  - Recommended for **all versions** of Fabric and NeoForge
+    - Recommended for Windows, on Linux not much really changes but feel free to try it out.
+- Substrate
+  - Recommended for **all versions** of Fabric and NeoForge
+
+#### Other Mods
+Other list of mods that does not fit into any category, or Im just lazy to make one for it.
 
 ## Other Client Optimizations
 This section mainly focuses more on your system in order to make Minecraft run much more faster, along with yapping about other stuff.
