@@ -20,18 +20,23 @@ This guide will talk about quite a lot of things, ranging from different categor
     - [Java Arguments Explanation](#java-arguments-explanation)
       - [Sources](#sources)
   - [Minecraft Mods](#minecraft-mods)
+    - [Rendering Mods](#rendering-mods)
+    - [Other Mods](#other-mods)
 - [Other Client Optimizations](#other-client-optimizations)
   - [Huge Pages](#huge-pages)
     - [There are Two Types of Huge Pages](#there-are-two-types-of-huge-pages)
     - [What's the benefit for enabling this on Minecraft?](#whats-the-benefit-for-enabling-this-on-minecraft)
-  - [Turning on Huge Pages in your OS](#turning-on-huge-pages-in-your-os)
-    - [Windows](#windows)
-    - [Linux (temporary)](#linux-temporary)
-    - [Linux (permanent, service based)](#linux-permanent-service-based)
+    - [Turning on Huge Pages in your OS](#turning-on-huge-pages-in-your-os)
+      - [Windows](#windows)
+      - [Linux (temporary)](#linux-temporary)
+      - [Linux (permanent, service based)](#linux-permanent-service-based)
+  - [Custom GLFW (Windows only)](#custom-glfw-windows-only)
   - [Electron Applications](#electron-applications)
     - [The First Reason](#the-first-reason)
     - [The Second Reason: CPU go brrrrrrrrrrrr (in a bad way)](#the-second-reason-cpu-go-brrrrrrrrrrrr-in-a-bad-way)
+      - [Solution](#solution)
     - [The Third Reason: Your GPU is Crying](#the-third-reason-your-gpu-is-crying)
+      - [Solution](#solution)
     - [The Fourth Reason: Your Memory belongs to the Electron Application now](#the-fourth-reason-your-memory-belongs-to-the-electron-application-now)
 - [Server Optimizations](#server-optimizations)
 
@@ -215,10 +220,10 @@ For now... in MY testing, It pretty much made FPS stabilize a LOT faster. from a
 
 Could also probably help with garbage collection too, but I have not tried or observed that yet.
 
-### Turning on Huge Pages in your OS
+#### Turning on Huge Pages in your OS
 These processes aren't really that scary, believe me. as this is actually a lot more beneficial turning this on rather than having it disabled. And with that, we will go straight to windows first, as Winslop apparently has it disabled for some unknown reason.
 
-#### Windows
+##### Windows
 - Press `Win + R`, type `secpol.msc`, and press `Enter`.
 - Go to `Security Settings` > `Local Policies` > `User Rights Assignment`.
 - Inside that, find the **Lock pages in memory** policy and then double click that policy.
@@ -230,7 +235,7 @@ Here's a screenshot of me doing this exact thing when I was still using windows:
 
 Huge Pages should be setup, to verify that, check logs for any huge pages related errors. And if that shows up, you did something wrong.
 
-#### Linux (temporary)
+##### Linux (temporary)
 ```
 echo advise | sudo tee /sys/kernel/mm/transparent_hugepage/shmem_enabled
 ```
@@ -238,7 +243,7 @@ echo advise | sudo tee /sys/kernel/mm/transparent_hugepage/shmem_enabled
 > [!NOTE]
 > To turn this off, just replace `echo advise` to `echo never` once you're done playing minecraft. Or just reboot your entire system if you feel like it. :3
 
-#### Linux (permanent, service based)
+##### Linux (permanent, service based)
 ```
 sudo nano /etc/systemd/system/thp-shmem.service
 ```
@@ -264,6 +269,12 @@ sudo systemctl daemon-reload
 sudo systemctl enable thp-shmem
 sudo systemctl start thp-shmem
 ```
+
+### Custom GLFW (Windows only)
+> [!NOTE]
+> Original thread can be found at https://discord.com/channels/602796788608401408/1347286967418884206 ([CaffeineMC discord](https://caffeinemc.net/discord))
+
+This thing is completely OUTSIDE of my nerd zone, so i'd recommend you join the CaffeineMC discord and take a read of the original thread instead.
 
 ### Electron Applications
 Oh boy! ...oh no!\
