@@ -39,6 +39,10 @@ This guide will talk about quite a lot of things, ranging from different categor
       - [Solution](#solution)
     - [The Fourth Reason: Your Memory belongs to the Electron Application now](#the-fourth-reason-your-memory-belongs-to-the-electron-application-now)
 - [Server Optimizations](#server-optimizations)
+  - Java
+  - Installing Java
+  - Java Arguments
+    - Sources
 
 ## System Specifications
 These are my system specs, and mainly used as a reference for any future benchmarks that may happen soon. (If i ever get into doing them) If your system specs are worser than mine, expect less performance. Same thing when you have better specs than mine.
@@ -311,3 +315,6 @@ Each Electron app demands **200MB to 400MB of RAM** just to exist because it's p
 
 ## Server Optimizations
 This is currently unavailable for now, as I don't own a server lol. But im kind of guessing that maybe using G1GC and GraalVM would be cool to use especially on a modded environment?? I dont think servers should even use ZGC even.
+
+future note to me to actually get into working on this because i have a lot of ideas on what to do now but just make sure its done properly
+also separate the minecraft mods section into somewhere else so it can be used for server and client as a reference to what people can use for both
