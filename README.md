@@ -55,7 +55,7 @@ The computer I use everyday, and definetly the computer I use to run minecraft o
 - **RAM**: Kingston Beast (16GB) + Kingston Fury (8GB) @ 2666MHz
 - **MOBO**: Gigabyte H510M K V2
 - **OS**: CachyOS Linux (x64)
-  - Using the default kernel.
+  - Using the `6.19.0-rc8-1-cachyos-rc` kernel.
   - With gamemode
 
 ### Dedicated Server
