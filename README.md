@@ -17,8 +17,7 @@ This guide will talk about quite a lot of things, ranging from different categor
     - [Installing via Launcher](#installing-via-launcher)
     - [Installing Manually](#installing-manually)
   - [Java Arguments (Java 25+)](#java-arguments-java-25)
-    - [Java Arguments Explanation](#java-arguments-explanation)
-      - [Sources](#sources)
+    - [Sources](#sources)
   - [Minecraft Mods](#minecraft-mods)
     - [Rendering Mods](#rendering-mods)
     - [Other Mods](#other-mods)
@@ -121,41 +120,55 @@ These Java arguments are the ones that I use to play Minecraft with. It's not re
 > In linux, I do not recommend using the two together at all.
 
 ```
--XX:+UseZGC -XX:+UseCompactObjectHeaders -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseTransparentHugePages -XX:-DontCompileHugeMethods -XX:+UseStringDeduplication -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:NmethodSweepActivity=1
+-XX:+UseZGC -XX:+UseCompactObjectHeaders -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+PerfDisableSharedMem -XX:+UseTransparentHugePages -XX:-DontCompileHugeMethods -XX:+UseStringDeduplication -XX:ReservedCodeCacheSize=400M -XX:NmethodSweepActivity=1 -XX:SoftMaxHeapSize=3G
 ```
 
-#### Java Arguments Explanation
+> [!NOTE]
+> `-XX:+UseZGC` enables the Z Garbage Collector.
+
+> [!NOTE]
+> `-XX:+UseCompactObjectHeaders` reduces the memory overhead of object headers in the heap, resulting in lower memory usage and better performance.
+
+> [!NOTE]
+> `-XX:+AlwaysPreTouch` forces the JVM to touch every page of memory during initialization (launch). Like being selfish and taking a specific amount of space in your memory just for Minecraft.
+
 > [!WARNING]
-> Any arguments marked with ⚠️ can be a problem over a specific issue. So if you run into any, feel free to remove them! (if actually related)
+> `-XX:+DisableExplicitGC` ignores manual `System.gc()` calls from mods and the game itself.\
+> **NOTE**: When enabled, the game cannot attempt recovery from an OOM (Out of Memory) error triggered by explicit GC. If you frequently run out of memory and cannot allocate more, consider removing this argument.
 
-- `-XX:+UseZGC`: Enables the Z Garbage Collector, a low-latency GC that does most of its work concurrently with your application threads. This means Minecraft won't freeze as much during garbage collection because ZGC doesn't need to pause everything to clean up memory.
+> [!NOTE]
+> `-XX:+PerfDisableSharedMem` disables creation of the `hsperfdata` file in `/tmp`.
 
-- `-XX:+UseCompactObjectHeaders`: A newer feature in Java 25 that reduces the memory overhead of object headers in the heap, resulting in lower memory usage and better performance overall.
-  
-- ⚠️ `-XX:+DisableExplicitGC`: Tells the JVM to ignore manual garbage collection calls (like `System.gc()`) that might be in Minecraft mods or code. This prevents poorly-timed GC from messing with ZGC's optimized collection schedule. The downside is that some code relying on explicit GC might not reclaim memory as expected, but this is rarely an issue unless you're running on extremely limited memory.
-  
-- `-XX:+AlwaysPreTouch`: Forces the JVM to actually touch and initialize all allocated heap memory during startup, rather than doing it lazily as needed. This makes startup slower but can improve runtime performance by avoiding page faults later.
-  
-- `-XX:+PerfDisableSharedMem`: Disables the JVM from writing performance statistics to `/tmp/hsperfdata_*` shared memory files. This reduces disk I/O operations that can cause microstutters.
-  
-- `-XX:+UseTransparentHugePages` or `-XX:+UseLargePages -XX:LargePageSizeInBytes=2M`: Enables the use of larger memory pages (2MB instead of the default 4KB). This reduces the overhead of managing the page table since the JVM needs to track fewer, larger pages instead of tons of tiny ones.
-  
-- `-XX:-DontCompileHugeMethods`: Allows the JIT compiler to compile very large methods that it would normally skip. By default, the JVM avoids compiling huge methods because they take a long time to compile, but this flag forces it to compile them anyway for potential performance gains.
+> [!NOTE]
+> `-XX:+UseTransparentHugePages` enables the use of 2MB memory pages instead of standard 4KB pages.\
+> **NOTE**: Based on recent testing, this can significantly improve frame stability.
 
-- `-XX:+UseStringDeduplication`: No explanation available for this yet
+> [!NOTE]
+> `-XX:-DontCompileHugeMethods` removes the restriction that prevents the JIT from compiling methods larger than 8000 bytes, allowing large methods to be compiled into optimized machine code.
 
-- `-XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M`: These control the code cache where the JVM stores compiled native code. Java starts as bytecode, then the JIT compiler converts frequently-used methods into faster native machine code. These flags allocate 400MB total for the code cache (vs the default ~240MB) and divide it into segments for different types of compiled code.
-  
-- `-XX:NmethodSweepActivity=1`: Controls how aggressively the JVM cleans up old/unused compiled code from the code cache. A value of 1 is very aggressive, meaning it'll more readily remove old compiled methods to make room for new ones.
+> [!NOTE]
+> `-XX:+UseStringDeduplication` deduplicates identical string objects. Example:
+> `"mine, mine, mine, craft"` --becomes--> `"mine, craft"`
+> Multiple identical string instances reference a single shared object instead of storing duplicates.
 
-##### Sources
+> [!NOTE]
+> `-XX:ReservedCodeCacheSize=400M` sets the maximum size of memory reserved for storing compiled native code.
+
+> [!NOTE]
+> `-XX:NmethodSweepActivity=1` controls how aggressively unused compiled code is cleaned from the code cache.
+
+> [!WARNING]
+> `-XX:SoftMaxHeapSize=3G` sets a soft heap limit that the GC attempts to stay under before reaching the hard maximum heap size.\
+> **NOTE**: For a 4GB (4098MB) maximum heap allocation, this value should be always set to 75% of the maximum heap size.
+
+#### Sources
 - https://exa.y2k.diy/garden/jvm-args/ (because of [#1](https://github.com/weskified/weskers-minecraft-optimization/issues/1))
 - People from [BruceTheMoose's discord server](https://discord.gg/u3NgjC23Qm) for some advice over these :3
 
 ### Minecraft Mods
 > [!NOTE]
 > I am currently making my own Optimization modpack for Mineraft!\
-> This optimization modpack's primary focus is to make different parts of minecraft run faster, perform better, instead of mainly focusing on Rendering and Singleplayer performance. And pretty much differentiates from other optimization modpacks out there due to the main reason of making this at the first place is to be used as a base for my Minecraft Modpacks. So I don't have to keep on configuring the same mod again and again for each new modpacks I make which is kind of tiring and repetetive.
+> This optimization modpack's primary focus is to make different parts of minecraft run faster, perform better, instead of mainly focusing on Rendering and Singleplayer performance. And pretty much differentiates from other optimization modpacks out there due to the main reason of making this at the first place is to be used as a base for my Minecraft Modpacks (its a base for minecraft modpacks too). So I don't have to keep on configuring the same mod again and again for each new modpacks I make which is kind of tiring and repetetive.
 > 
 > [Download the Modpack](https://modrinth.com/modpack/woof!)
 
